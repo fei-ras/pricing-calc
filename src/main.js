@@ -37,12 +37,17 @@ window.calculate = () => {
     const laborTotal = rate * hours;
 
     const markupPercent = parseFloat(document.getElementById('markup')?.value) || 0;
+    const comissionPercent = parseFloat(document.getElementById('comission')?.value) || 0;
     const totalCogs = partsTotal + laborTotal;
-    const finalPrice = totalCogs * (1 + (markupPercent / 100));
+    const finalPrice = totalCogs * ((1 + (markupPercent / 100)) / (1 - (1 + (markupPercent / 100)) * (comissionPercent / 100)));
+    const comissionAmount = finalPrice * (comissionPercent / 100);
+    const totalCogsInclComission = comissionAmount + partsTotal + laborTotal;
 
     document.getElementById('totalLaborDisplay').innerText = laborTotal.toFixed(2);
     document.getElementById('totalCogs').innerText = totalCogs.toFixed(2);
     document.getElementById('finalPrice').innerText = finalPrice.toFixed(2);
+    document.getElementById('calculatedComission').innerText = comissionAmount.toFixed(2);
+    document.getElementById('totalCogsInclComission').innerText = totalCogsInclComission.toFixed(2);
 };
 
 /**
